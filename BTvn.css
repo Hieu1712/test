@@ -1,0 +1,46 @@
+table, th, td {
+    border: 2px solid rgb(17, 16, 16);
+    border-collapse: collapse;
+    text-align: center;
+  }
+  .row1 {
+    color: snow;
+    height: 50px;
+    background-color: rgb(122, 128, 136);
+  }
+  .row2 {
+    height: 100px;
+    background-color: rgb(201, 208, 218);
+  }
+  .row2,a {
+    color: blue;
+}
+  .row21 {
+    color:black;
+    background-color: rgb(255, 255, 255);
+  }
+  .row3 {
+    color: snow;
+    height: 50px;
+    background-color: rgb(122, 128, 136);
+  }
+  input[type="button"] {width: 54%;}
+.bt_dn {
+  background:dodgerblue;
+}
+.main{
+  background-color: blanchedalmond;
+}
+.main {
+  margin: auto;
+  width: 70%;
+}
+.D1 {
+  text-align: center;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+.D3 {
+  text-align: center;
+  padding-bottom: 10px;
+}
