@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label[class="check"]::after{
+            color:crimson;
+            content: "*";
+        }
+        .test{
+            width: 300px;
+        }
+        .main {
+            display: flex;
+        }
+        div#menu {
+            width: 900px;
+            height: 450px;
+        }
+        div#header {
+            background-color: #666666;
+            height: 135px;
+        }
+        div#container {
+            display: flex;
+            height: 215px;   
+        }
+        .col1 {
+            width: 230px;
+            background-color: #cccccc;
+        }
+        .col2 {
+            width: 670px;
+            background-color: #f1f1f1;
+        }
+        div#footer {
+            height: 85px;
+            background-color: #777777;
+        }
+        h1.text_header {
+            color: white;
+            margin-top: 0px;
+            padding: 45px 412px;
+        }
+        p {
+            padding: 0px 10px;
+        }
+        h4.text_footer {
+            padding: 35px 427px;
+            margin: 0px;
+            color: white;
+        }
+        h1.text_container {
+            padding-left: 10px;
+        }
+        .link {
+            padding: 25px;
+        }
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="test">
+            <div>
+                <a href="#">lesson</a>
+                <a href="#">lesson1</a>
+            </div>
+            <p>
+                <span>leson1</span>
+            </p>
+            <p>leson2</p>
+            <label class="check">Email</label> <br>
+            <input  type="text" name="text"> <br> <br>
+            <label class="check">Password</label> <br>
+            <input  type="text" name="text"> <br> <br>
+            <label>Mã DV</label><br>
+            <input  type="text" name="text"> <br>
+            <input type="checkbox" name="checkbox"> <br>
+            <button type="submit" name = "submit">Login</button>
+        </div>
+        <div id="menu">
+            <div id="header">
+                <h1 class="text_header">Cities</h1>
+            </div>
+            <div id="container">
+                <div class="col1">  
+                    <div class="link">
+                        <a href="#">London</a> <br>
+                        <a href="#">Pari</a> <br>
+                        <a href="#">Tokyo</a>
+                    </div>
+                </div>
+                <div class="col2">
+                    <h1 class="text_container">London</h1>
+                    <p>Luân Đôn là thủ đô của Anh và Vương quốc Liên hiệp Anh và Bắc Ireland, 
+                        đồng thời là thành phố lớn nhất Vương quốc Liên hiệp Anh và cũng là khu vực đô thị rộng thứ hai 
+                        về diện tích trong Liên minh châu Âu. Luân Đôn được người La Mã lập ra 2000 năm trước đây với tên gọi 
+                        đầu tiên là Londinium.</p>
+                </div>
+            </div>
+            <div id="footer">
+                <h4 class="text_footer">Footer</h4>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
