@@ -1,0 +1,33 @@
+ul.nav {
+    background-color: black;
+    margin-bottom: 30px;
+}
+
+a.nav-link {
+    color: white;
+}
+li.nav-item a:hover{background-color: green;}
+.container-xl {
+    width: 850px;
+}
+h6 {
+    color: white;
+    padding: 10px 330px 0px 0px;
+}
+ul.nav.justify-content-end {
+    background-color: slategray;
+}
+.menu {
+    margin: auto;
+    height: 300px;
+    width: 822px;
+    border: 2px solid slategray;
+}
+ul.nav.justify-content-end {
+    margin-bottom: -1px;
+}
+.jumbotron.text-center {
+    padding-top: 30px;
+}
+
+.form-group {width: 350px;margin: auto;}
