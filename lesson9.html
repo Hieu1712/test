@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h2>JavaScript String Properties</h2>
+  <p>"Viet nam vo dich, vo dich"</p>
+  <p id="demo"></p>
+  <button onclick="demkytu()">Đếm ký tự</button>
+  <p id="demo1"></p>
+  <button onclick="demtu()">Đếm số từ</button>
+  <p id="demo2"></p>
+  <button onclick="demtulap()">Đếm số từ lặp</button>
+  <p>Form Đăng Nhập</p>
+  <form method="POST">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="pwd">Password:</label><br>
+    <input type="password" id="pwd" name="pwd"><br><br>
+    <input onclick="kt()" type="submit" id = "submit" value="Submit">
+  </form>
+
+  <script>
+
+    function demkytu() {
+      var txt = "Viet nam vo dich, vo dich";
+      var sln = txt.length;
+      document.getElementById("demo").innerHTML = 'Số ký tự là: ' + sln + '';
+    }
+
+    function demtu() {
+      var str = "Viet nam vo dich, vo dich";
+      var arr = str.split(" ");
+      document.getElementById("demo1").innerHTML = 'Số từ là: ' + arr.length + '';
+    }
+
+    function demtulap() {
+      var str = 'Viet nam vo dich, vo dich';
+      var strLower = str.toLowerCase().replace(/ /g, '');
+      var dem;
+      var strTmp = ''
+      var result = '';
+
+      for (var i = 0; i < strLower.length; i++) {
+        dem = 1;
+        for (var j = i + 1; j <= strLower.length; j++) {
+          if (strLower[i] == strLower[j]) {
+            dem++;
+          }
+        }
+
+        if (strTmp.indexOf(strLower[i]) == -1) {
+          result += strLower[i] + ' lap ' + dem + '<br>';
+          document.getElementById("demo2").innerHTML = result;
+        }
+
+        strTmp += strLower[i];
+      }
+    }
+
+    function kt() {
+      var username = document.getElementById("username").value ;
+      var pwd = document.getElementById("pwd").value ;
+      if(username =='' || pwd =='' ) {
+        alert('Vui lòng điền đầy đủ thông tin đăng nhập!');    
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
