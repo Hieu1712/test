@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    input#myInput {
+    width: 160px;
+    }
+    table, th, td {
+      width: 25%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+  <h1>My First Web Page</h1>
+  <p>
+    student list</p>
+  <!-- <p id="demo"></p> -->
+  <!-- <table id="table">
+    <tr>
+        <th>stt</td>
+        <th>name</td>
+        <th>class</td>
+        <th>point</td>
+    </tr>
+    <tr id="list">  
+    </tr>
+  </table> -->
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+  <table id="myTable">
+    <tr class="header">
+      <th>STT</th>
+      <th>Name</th>
+      <th>Class</th>
+      <th>Point</th>
+    </tr>
+    <tr>
+      <td>01</td>
+      <td>Hieu</td>
+      <td>PHP01</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>02</td>
+      <td>Giang</td>
+      <td>PHP02</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>03</td>
+      <td>Dat</td>
+      <td>PHP03</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>04</td>
+      <td>Khiem</td>
+      <td>PHP04</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>05</td>
+      <td>Quan</td>
+      <td>PHP05</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>06</td>
+      <td>Hoang</td>
+      <td>PHP05</td>
+      <td>9</td>
+    </tr>
+  </table>
+  <button onclick="oderName()">oder Name</button>
+  <button onclick="oderPoint()">oder Point</button>
+  <button type="button" onclick="reset()">Reset</button>
+  <script>
+    // var studentList = [
+    //   [1,'Hiếu','PHP01',8],
+    //   [2,'Giang','PHP02',9],
+    //   [3,'Đạt','PHP03',7],
+    //   [4,'Khiêm','PHP04',5],
+    //   [5,'Quân','PHP05',6],
+    //   [6,'Hoàng','PHP06',10]
+    // ];
+    // // console.log(studentList[0][1]);
+    // for(var i = 0 ; i < studentList.length ; i++) {
+    //   // document.getElementById("list").innerHTML = studentList[i] ;
+    //   for(var j = 0 ; j < studentList[i].length ; j++){
+    //     console.log(studentList[i][j]);
+    //   }
+    //   document.getElementById("list").innerHTML = studentList[i] ;
+    // }
+    // for (var i = 0 ; i < studentList.length ; i++) {
+    //   for (var j = 0 ; j < studentList[i].length ; j++){
+    //     // console.log(studentList[i][j]);
+    //     // if () {
+    //     //   console.log(studentList[i][j]);
+    //     // }
+    //   }
+    //   // document.getElementById("table").innerHTML = "</tr>";
+    // }
+  var input, filter, table, tr, td, i, txtValue;
+  function myFunction() {
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {      
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+
+  function oderName() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("myTable");
+    switching = true;
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1 ); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[1];
+        y = rows[i + 1].getElementsByTagName("TD")[1];
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+  }
+
+  function oderPoint() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("myTable");
+    switching = true;
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1 ); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[3];
+        y = rows[i + 1].getElementsByTagName("TD")[3];
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+  }
+
+  function reset() {
+    location.reload();
+  }
+  </script>
+</body>
+</html>
