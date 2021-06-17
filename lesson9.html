@@ -10,7 +10,9 @@
   <p id="demo1"></p>
   <button onclick="demtu()">Dem so tu</button>
   <p id="demo2"></p>
-  <button onclick="demtulap()">Dem so tu lap</button>
+  <button onclick="demkytulap()">Dem so ky tu lap</button>
+  <p id="demo3"></p>
+  <button onclick="demtulap()">Dem tu lap</button>
   <p>Form Dang Nhap</p>
   <form method="POST">
     <label for="username">Username:</label><br>
@@ -34,7 +36,7 @@
       document.getElementById("demo1").innerHTML = 'So tu la: ' + arr.length + '';
     }
 
-    function demtulap() {
+    function demkytulap() {
       var str = 'Viet nam vo dich, vo dich';
       var strLower = str.toLowerCase().replace(/ /g, '');
       var dem;
@@ -56,6 +58,27 @@
 
         strTmp += strLower[i];
       }
+    }
+
+    function demtulap() {
+      var str = "Viet nam vo dich , vo dich" ;
+      var strLower = str.toLocaleLowerCase().split(" ") ;
+      var dem ;
+      var strTmp ='' ;
+      var result ='' ;
+      for ( var i = 0; i < strLower.length; i++) {
+        dem = 1;
+        for( var j = i + 1; j <= strLower.length; j++){
+            if( strLower[i] == strLower[j]){
+              dem++;
+            }
+        }
+        if (strTmp.indexOf(strLower[i]) == -1) {
+            result += strLower[i] + ' lap: ' + dem + ' lan ' + '</br>' ;
+        }
+        strTmp += strLower[i];
+      }
+        document.getElementById("demo3").innerHTML= result;
     }
 
     function kt() {
