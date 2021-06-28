@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <title>Lesson 10 Javascript!</title>
+</head>
+
+<body>
+  <style>
+    label.form-label::after {
+      content: "*";
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      float: right;
+    }
+
+    button#submit {
+      float: left;
+    }
+
+    div#info-list {
+      display: none;
+      border: 1px solid slategrey;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+  <div style="width: 60%" class="container">
+    <div class="row" oninput="checkEmpty()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input oninput="checkName()" type="text" class="form-control" id="name" placeholder="name" maxlength="30">
+        <p id="text-name" class="hide" style="color: red;">Vui long nhap ky tu chu, so, _, -, toi da la 30 ky tu!</p>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input oninput="checkEmail()" type="email" class="form-control" id="email" placeholder="name@gmail.com"
+          maxlength="30">
+        <p id="text-email" class="hide" style="color: red;">Vui long nhap ky tu chu, so, _, -, toi da la 30 ky tu!</p>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone number</label>
+        <input oninput="checkPhoneNumber()" type="text" class="form-control" id="phone" placeholder="phone number"
+          maxlength="11">
+        <p id="checkphone" class="hide" style="color: red;">Vui long nhap chi co ky tu so, so dau tien la so 0, do dai
+          tu 9 den 11!</p>
+      </div>
+      <div class="mb-3">
+        <label for="birthday" class="form-label">Birthday</label>
+        <input type="date" id="birthday" class="form-control" name="birthday">
+      </div>
+      <div class="mb-3" id="checkRadio">
+        <label for="sex" class="form-label">Gioi Tinh</label> <br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Nam"
+            checked="checked">
+          <label class="form-check-label" for="inlineRadio1">Nam</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Nu">
+          <label class="form-check-label" for="inlineRadio2">Nu</label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="form-label" class="form-label">Address</label>
+        <input class="form-control" type="text" id="text-address" placeholder="Address">
+      </div>
+      <div class="mb-3">
+        <label for="info">Textarea Info</label>
+        <textarea class="form-control" id="info" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <input type="checkbox" name="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Dong y dieu khoan</label>
+      </div>
+      <div class="mb-3">
+        <input type="checkbox" name="checkbox" class="form-check-input" id="exampleCheck">
+        <label class="form-check-label" for="exampleCheck1">Nhan mail tin tuc</label>
+      </div>
+      <div class="mb-3">
+        <button id="submit" onclick="listinf()" type="button" class="btn btn-primary disabled">Register</button>
+      </div>
+      <div id="info-list">
+        <center>
+          <p>Thông Tin Người Dùng</p>
+        </center>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function checkEmpty() {
+      var birthday = document.getElementById("birthday").value;
+      var address = document.getElementById("text-address").value;
+      var info = document.getElementById("info").value;
+      var exampleCheck1 = document.getElementById("exampleCheck1");
+      // name
+      const regexName = new RegExp(/[^0-9A-Za-z _-]/, 'g');
+      var name = document.getElementById("name").value;
+      var name1 = name.match(regexName);
+      // email
+      const regexEmail = new RegExp(/[^0-9A-Za-z_.-]+@/, 'g');
+      var email = document.getElementById("email").value;
+      var checkmail = email.split("");
+      var at = checkmail.indexOf("@");
+      var email1 = (email.match(regexEmail) || at == -1 || checkmail[0] == "@" || checkmail.pop() == "@");
+      // phone
+      const regexPhone = new RegExp(/[^0-9]/, 'g');
+      var phone = document.getElementById("phone").value;
+      var numberPhone = phone.split("");
+      var phone1 = (phone.match(regexPhone) || numberPhone[0] != 0 || numberPhone.length < 9);
+      if (name != '' && !name1 && email != '' && !email1 && phone != '' && !phone1 && address != '' && birthday != '' && exampleCheck1.checked) {
+        document.getElementById("submit").classList.remove("disabled");
+      } else {
+        document.getElementById("submit").classList.add("disabled");
+      }
+    }
+    // phone
+    function checkPhoneNumber() {
+      const regex = new RegExp(/[^0-9]/, 'g');
+      var phone = document.getElementById("phone").value;
+      var numberPhone = phone.split("");
+      if (phone.match(regex)) {
+        document.getElementById("checkphone").style.display = 'block';
+      }
+      else if (numberPhone[0] != 0 && numberPhone != '') {
+        document.getElementById("checkphone").style.display = 'block';
+      }
+      else if (numberPhone.length < 9 && numberPhone.length > 0) {
+        document.getElementById("checkphone").style.display = 'block';
+      } else {
+        document.getElementById("checkphone").style.display = 'none';
+      }
+    }
+    // name
+    function checkName() {
+      const regex = new RegExp(/[^0-9A-Za-z _-\s]/, 'g');
+      var name = document.getElementById("name").value;
+      if (name.match(regex)) {
+        document.getElementById("text-name").style.display = 'block';
+      } else {
+        document.getElementById("text-name").style.display = 'none';
+      }
+    }
+    // email
+    function checkEmail() {
+      const regex = new RegExp(/[^0-9A-Za-z_@.-]/, 'g');
+      var email = document.getElementById("email").value;
+      var checkmail = email.split("");
+      var at = checkmail.indexOf("@");
+      if (email.match(regex)) {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (at == -1 && email != '') {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (checkmail[0] == "@") {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (checkmail.pop() == "@") {
+        document.getElementById("text-email").style.display = 'block';
+      } else {
+        document.getElementById("text-email").style.display = 'none';
+      }
+    }
+
+    function listinf() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+      var birthday = document.getElementById("birthday").value;
+      var address = document.getElementById("text-address").value;
+      var info = document.getElementById("info").value;
+      var exampleCheck1 = document.getElementById("exampleCheck1");
+      if (document.getElementById('inlineRadio1').checked) {
+        var sex = document.getElementById('inlineRadio1').value;
+      } else {
+        var sex = document.getElementById('inlineRadio2').value;
+      }
+
+      var inf = name + ', ' + email + ', ' + phone + ', ' + birthday + ', ' + address + ', ' + info + ', ' + sex;
+      var pElement = document.createElement("p");
+      pElement.innerHTML = inf;
+
+      var infoList = document.getElementById('info-list');
+      infoList.appendChild(pElement);
+
+      var btnDel = document.createElement("BUTTON");
+      btnDel.innerHTML = "Delete";
+      pElement.appendChild(btnDel);
+
+      btnDel.setAttribute("onclick", "removeElement(this)");
+      document.getElementById("info-list").style.display = 'block';
+      document.getElementById("name").value = '';
+      document.getElementById("email").value = '';
+      document.getElementById("phone").value = '';
+      document.getElementById("text-address").value = '';
+      document.getElementById("info").value = '';
+      document.getElementById("birthday").value = '';
+      checkEmpty();
+
+    }
+
+    function removeElement(btnDel) {
+      btnDel.parentElement.remove();
+      alert('Ban co muon xoa khong?');
+    }
+
+  </script>
+</body>
+
+</html>
