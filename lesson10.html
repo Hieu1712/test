@@ -20,11 +20,24 @@
       font-weight: bold;
     }
 
+    button {
+      float: right;
+    }
+
+    button#submit {
+      float: left;
+    }
+
+    div#info-list {
+      display: none;
+      border: 1px solid slategrey;
+    }
+
     .hide {
       display: none;
     }
   </style>
-  <div class="container">
+  <div style="width: 60%" class="container">
     <div class="row" oninput="checkEmpty()">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
@@ -42,8 +55,7 @@
         <input oninput="checkPhoneNumber()" type="text" class="form-control" id="phone" placeholder="phone number"
           maxlength="11">
         <p id="checkphone" class="hide" style="color: red;">Vui long nhap chi co ky tu so, so dau tien la so 0, do dai
-          tu 9
-          den 11!</p>
+          tu 9 den 11!</p>
       </div>
       <div class="mb-3">
         <label for="birthday" class="form-label">Birthday</label>
@@ -79,10 +91,16 @@
       </div>
       <div class="mb-3">
         <button id="submit" onclick="listinf()" type="button" class="btn btn-primary disabled">Register</button>
-        <span class="form-control" id="text-info" rows="3"></span>
+      </div>
+      <div id="info-list">
+        <center>
+          <p>Thông Tin Người Dùng</p>
+        </center>
+
       </div>
     </div>
   </div>
+
   <script type="text/javascript">
     function checkEmpty() {
       var birthday = document.getElementById("birthday").value;
@@ -94,15 +112,16 @@
       var name = document.getElementById("name").value;
       var name1 = name.match(regexName);
       // email
-      const regexEmail = new RegExp(/[^0-9A-Za-z_@.-]/, 'g');
+      const regexEmail = new RegExp(/[^0-9A-Za-z_.-]+@/, 'g');
       var email = document.getElementById("email").value;
-      var email1 = email.match(regexEmail);
+      var checkmail = email.split("");
+      var at = checkmail.indexOf("@");
+      var email1 = (email.match(regexEmail) || at == -1 || checkmail[0] == "@" || checkmail.pop() == "@");
       // phone
       const regexPhone = new RegExp(/[^0-9]/, 'g');
       var phone = document.getElementById("phone").value;
       var numberPhone = phone.split("");
       var phone1 = (phone.match(regexPhone) || numberPhone[0] != 0 || numberPhone.length < 9);
-      console.log("phone:" + !phone1);
       if (name != '' && !name1 && email != '' && !email1 && phone != '' && !phone1 && address != '' && birthday != '' && exampleCheck1.checked) {
         document.getElementById("submit").classList.remove("disabled");
       } else {
@@ -114,16 +133,21 @@
       const regex = new RegExp(/[^0-9]/, 'g');
       var phone = document.getElementById("phone").value;
       var numberPhone = phone.split("");
-      if (phone.match(regex) || numberPhone[0] != 0 || numberPhone.length < 9) {
+      if (phone.match(regex)) {
         document.getElementById("checkphone").style.display = 'block';
       }
-      else {
+      else if (numberPhone[0] != 0 && numberPhone != '') {
+        document.getElementById("checkphone").style.display = 'block';
+      }
+      else if (numberPhone.length < 9 && numberPhone.length > 0) {
+        document.getElementById("checkphone").style.display = 'block';
+      } else {
         document.getElementById("checkphone").style.display = 'none';
       }
     }
     // name
     function checkName() {
-      const regex = new RegExp(/[^0-9A-Za-z _-]/, 'g');
+      const regex = new RegExp(/[^0-9A-Za-z _-\s]/, 'g');
       var name = document.getElementById("name").value;
       if (name.match(regex)) {
         document.getElementById("text-name").style.display = 'block';
@@ -135,7 +159,15 @@
     function checkEmail() {
       const regex = new RegExp(/[^0-9A-Za-z_@.-]/, 'g');
       var email = document.getElementById("email").value;
+      var checkmail = email.split("");
+      var at = checkmail.indexOf("@");
       if (email.match(regex)) {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (at == -1 && email != '') {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (checkmail[0] == "@") {
+        document.getElementById("text-email").style.display = 'block';
+      } else if (checkmail.pop() == "@") {
         document.getElementById("text-email").style.display = 'block';
       } else {
         document.getElementById("text-email").style.display = 'none';
@@ -155,8 +187,33 @@
       } else {
         var sex = document.getElementById('inlineRadio2').value;
       }
-      var inf = name + '<br>' + email + '<br>' + phone + '<br>' + birthday + '<br>' + address + '<br>' + info + '<br>' + sex;
-      document.getElementById("text-info").innerHTML = inf;
+
+      var inf = name + ', ' + email + ', ' + phone + ', ' + birthday + ', ' + address + ', ' + info + ', ' + sex;
+      var pElement = document.createElement("p");
+      pElement.innerHTML = inf;
+
+      var infoList = document.getElementById('info-list');
+      infoList.appendChild(pElement);
+
+      var btnDel = document.createElement("BUTTON");
+      btnDel.innerHTML = "Delete";
+      pElement.appendChild(btnDel);
+
+      btnDel.setAttribute("onclick", "removeElement(this)");
+      document.getElementById("info-list").style.display = 'block';
+      document.getElementById("name").value = '';
+      document.getElementById("email").value = '';
+      document.getElementById("phone").value = '';
+      document.getElementById("text-address").value = '';
+      document.getElementById("info").value = '';
+      document.getElementById("birthday").value = '';
+      checkEmpty();
+
+    }
+
+    function removeElement(btnDel) {
+      btnDel.parentElement.remove();
+      alert('Ban co muon xoa khong?');
     }
 
   </script>
