@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <title>Lesson 13 jquery!</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <style>
+
+    .container {
+      background-color: rgb(13 110 253 / 25%);
+    }
+    label.form-label::after {
+      content: "*";
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      float: right;
+    }
+
+    button#submit {
+      float: left;
+    }
+
+    div#info-list {
+      background-color: azure;
+      display: none;
+      border: 1px solid slategrey;
+    }
+
+    .hide {
+      font-style: italic;
+      display: none;
+    }
+  </style>
+  <div style="width: 50%" class="container">
+    <div class="row" id="checkEmpty" >
+      <div class="mb-3" >
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="name" maxlength="30">
+        <p id="text-name" class="hide" style="color: red;">Sai cú pháp. Nhập lại!!!</p>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="name@gmail.com"
+          maxlength="30">
+        <p id="text-email" class="hide" style="color: red;">Sai cú pháp. Nhập lại!!!</p>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone number</label>
+        <input  type="text" class="form-control" id="phone" placeholder="phone number"
+          maxlength="11">
+        <p id="checkphone" class="hide" style="color: red;">Sai cú pháp. Nhập lại!!!</p>
+      </div>
+      <div class="mb-3">
+        <label for="birthday" class="form-label">Birthday</label>
+        <input type="date" id="birthday" class="form-control" name="birthday">
+      </div>
+      <div class="mb-3" id="checkRadio">
+        <label for="sex" class="form-label">Gioi Tinh</label> <br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Nam"
+            checked="checked">
+          <label class="form-check-label" for="inlineRadio1">Nam</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Nu">
+          <label class="form-check-label" for="inlineRadio2">Nu</label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="form-label" class="form-label">Address</label>
+        <input class="form-control" type="text" id="text-address" placeholder="Address">
+      </div>
+      <div class="mb-3">
+        <label for="info">Textarea Info</label>
+        <textarea class="form-control" id="info" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <input type="checkbox" name="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Dong y dieu khoan</label>
+      </div>
+      <div class="mb-3">
+        <input type="checkbox" name="checkbox" class="form-check-input" id="exampleCheck">
+        <label class="form-check-label" for="exampleCheck1">Nhan mail tin tuc</label>
+      </div>
+      <div class="mb-3">
+        <button id="submit" type="button" class="btn btn-primary disabled">Register</button>
+      </div>
+      <div id="info-list">
+        <center>
+          <p style="font-weight: bold;">Thông Tin Người Dùng</p>
+        </center>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+      function checkety() {
+        var birthday = $("#birthday").val();
+        var address = $("#text-address").val();
+        var info = $("#info").val();
+        // name
+        const regexName = new RegExp(/[^0-9A-Za-z _-]/, 'g');
+        var name = $("#name").val();
+        var name1 = name.match(regexName);
+        // email
+        const regexEmail = new RegExp(/[^0-9A-Za-z_.-]+@/, 'g');
+        var email = $("#email").val();
+        var checkmail = email.split("");
+        var at = checkmail.indexOf("@");
+        var email1 = (email.match(regexEmail) || at == -1 || checkmail[0] == "@" || checkmail.pop() == "@");
+        // phone
+        const regexPhone = new RegExp(/[^0-9]/, 'g');
+        var phone = $("#phone").val();
+        var numberPhone = phone.split("");
+        var phone1 = (phone.match(regexPhone) || numberPhone[0] != 0 || numberPhone.length < 9);
+        var checkbox1 = $('#exampleCheck1').is(":checked");
+        if (name != '' && !name1 && email != '' && !email1 && phone != '' && !phone1 && address != '' && birthday != '' && checkbox1 == true ) {
+          $("#submit").removeClass("disabled");
+        } else {
+          $("#submit").addClass("disabled");
+        }
+      }
+      $("#checkEmpty").keyup(function() {
+        checkety();
+      });
+      $('input[id="exampleCheck1"]').click(function() {
+        checkety();
+      });
+      //checkemail
+      $('#email').keyup(function() {
+        const regex = new RegExp(/[^0-9A-Za-z_@.-]/, 'g');
+        var email = $("#email").val();
+        var checkmail = email.split("");
+        var at = checkmail.indexOf("@");
+        if (email.match(regex)) {
+          $("#text-email").show();
+        } else if (at == -1 && email != '') {
+          $("#text-email").show();
+        } else if (checkmail[0] == "@") {
+          $("#text-email").show();
+        } else if (checkmail.pop() == "@") {
+          $("#text-email").show();
+        } else {
+          $("#text-email").hide();
+        }
+      });
+      //checkname
+      $('#name').keyup(function() {
+        const regex = new RegExp(/[^0-9A-Za-z _-\s]/, 'g');
+        var name = $("#name").val();
+        if (name.match(regex)) {
+          $("#text-name").show();
+        } else {
+          $("#text-name").hide();
+        }
+      });
+      //checkphone
+      $('#phone').keyup(function() {
+        const regex = new RegExp(/[^0-9]/, 'g');
+        var phone = $("#phone").val();
+        var numberPhone = phone.split("");
+        if (phone.match(regex)) {
+          $("#checkphone").show();
+        } else if (numberPhone[0] != 0 && numberPhone != '') {
+          $("#checkphone").show();
+        } else if (numberPhone.length < 9 && numberPhone.length > 0) {
+          $("#checkphone").show();
+        } else {
+          $("#checkphone").hide();
+        }
+      });
+      //insert
+      $("#submit").click(function() {
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var birthday = $("#birthday").val();
+        var address = $("#text-address").val();
+        var info = $("#info").val();
+        var exampleCheck1 = $("#exampleCheck1");
+        var checkRadio1 = $('#inlineRadio1').is(":checked");
+        if (checkRadio1 == true) {
+          var sex = $('#inlineRadio1').val();
+        } else {
+          var sex = $('#inlineRadio2').val();
+        }
+        var inf = name + ', ' + email + ', ' + phone + ', ' + birthday + ', ' + address + ', ' + info + ', ' + sex;
+        var pElement = '<p>' + inf + '<button class="btn-del" onclick="removeElement(this)">DELETE</button></p>';
+        $('#info-list').append(pElement);
+        $("#info-list").show();
+        $("#name").val('');
+        $("#email").val('');
+        $("#phone").val('');
+        $("#text-address").val('');
+        $("#info").val('');
+        $("#birthday").val('');
+        $('#exampleCheck1').prop('checked', false);
+        checkety();
+      });
+    });
+    //remove
+    function removeElement(del) {
+      del.parentElement.remove();
+      alert('Ban co muon xoa khong?');
+    }
+  
+  </script>
+</body>
+
+</html>
